@@ -57,16 +57,16 @@ let testChecked;
 //поворот карты по клику 
 function showFront(eventObj) {
     let image = eventObj.target; //создали изображение за событием которого следим, таргет - информация по событию
-    let name = image.alt;
-    console.log("showFront");
-    name = "./img/cards/" + name + ".png";
-    image.src = name;
-    image.classList.toggle("checked");
-}
-
-function showBack(eventObj) {
-    let image = eventObj.target; //создали изображение за событием которого следим, таргет - информация по событию
-    console.log("showBack");
-    image.src = "./img/cards/back.png";
-    image.classList.toggle("checked");
+    let test = image.classList.contains("checked");
+    if (!test) {
+        let name = image.alt;
+        console.log("showFront");
+        name = "./img/cards/" + name + ".png";
+        image.src = name;
+        image.classList.toggle("checked");
+    } else {
+        console.log("showBack");
+        image.src = "./img/cards/back.png";
+        image.classList.toggle("checked");
+    }
 }
