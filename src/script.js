@@ -1,18 +1,20 @@
 "use strict";
 //после события "загрузка страницы" вызывается ф-ция init
 window.onload = init; 
-//получает все картинки по тегу, перебирает, навешивает ф-цию обратного вызова showAnswer
-//т.е. обработчик (слушатель) на событие клик. При возникновении события вызывается showAnswer
+//получает все картинки по тегу, перебирает, навешивает ф-цию обратного вызова showFront
+//т.е. обработчик (слушатель) на событие клик. При возникновении события вызывается showFront
+
 function init() {
     var images = document.getElementsByTagName("img");
     for (var i = 0; i < images.length; i++){
-        images[i].onclick = showAnswer; 
+        images[i].onclick = showFront; 
     }
 }
+
 //массив с картами
 let cards = ["0C", "0D", "0H", "0S", "QH"];
 
-//добавляет в массив картинки из массива карт (доработка)
+//добавляет в массив картинки из массива карт 
 function addElemInArray() {
     let slide = new Array();
     for(let i=0; i<cards.length; i++){
@@ -40,22 +42,31 @@ function shuffle(a) {
 //перемешиваем массив
 let shuffleArray = shuffle(pairCardArray);
 
-//выводим картинки на экран (доработка)
+//выводим картинки на экран
 function getImages(){
     for(let i=0; i<shuffleArray.length; i++){
-    let img = document.createElement('img');
-    img.src = shuffleArray[i].src;
-    img.classList.add(shuffleArray[i].name);
-    document.getElementById("container").appendChild(img);
+    let img = document.createElement('img'); //создали картинку
+    img.src = "./img/cards/back.png"; 
+    img.setAttribute('alt', shuffleArray[i].name);
+    document.getElementById("container").appendChild(img); //выводим на экран
 }
 }
 getImages();
-//поворот карты по клику (доработка)
-function showAnswer(eventObj) {
-    var image = eventObj.target;
-    var name = image.id;
+
+let testChecked;
+//поворот карты по клику 
+function showFront(eventObj) {
+    let image = eventObj.target; //создали изображение за событием которого следим, таргет - информация по событию
+    let name = image.alt;
+    console.log("showFront");
     name = "./img/cards/" + name + ".png";
     image.src = name;
+    image.classList.toggle("checked");
+}
 
-    setTimeout(returnCard, 2000, image);
+function showBack(eventObj) {
+    let image = eventObj.target; //создали изображение за событием которого следим, таргет - информация по событию
+    console.log("showBack");
+    image.src = "./img/cards/back.png";
+    image.classList.toggle("checked");
 }
