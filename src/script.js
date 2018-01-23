@@ -3,32 +3,14 @@
 window.onload = init; 
 //получает все картинки по тегу, перебирает, навешивает ф-цию обратного вызова showFront
 //т.е. обработчик (слушатель) на событие клик. При возникновении события вызывается showFront
+let frontCounter = 0;
 
 function init() {
     var images = document.getElementsByTagName("img");
     for (var i = 0; i < images.length; i++){
-        images[i].onclick = showFront; 
+        images[i].onclick = turnCard; 
     }
 }
-
-//массив с картами
-let cards = ["0C", "0D", "0H", "0S", "QH"];
-
-//добавляет в массив картинки из массива карт 
-function addElemInArray() {
-    let slide = new Array();
-    for(let i=0; i<cards.length; i++){
-        slide[i] = new Image();
-        slide[i].src = "./img/cards/" + cards[i] + ".png";
-        slide[i].name = cards[i];
-}
-    return slide;
-}
-
-//создает массив с парами карт
-let pairCardArray = new Array();
-pairCardArray.push(...addElemInArray());
-pairCardArray.push(...addElemInArray());
 
 //перемешивает массив
 function shuffle(a) {
@@ -39,15 +21,32 @@ function shuffle(a) {
     return a;
 }
 
-//перемешиваем массив
-let shuffleArray = shuffle(pairCardArray);
+//массив с картами
+let cardsDeck = ["0C", "0D", "0H", "0S", "QH", "QS", "QD"];
+console.log(cardsDeck);
+let shuffleCardsDeck = shuffle(cardsDeck);
+console.log(shuffleCardsDeck);
+
+//создает массив с парами отобранных карт, добавляет им картинки Src
+let pairsСards = new Array(); 
+for(let i=0; i<2; i++){
+    pairsСards.push(shuffleCardsDeck[i])
+    pairsСards[i] = new Image();
+    pairsСards[i].src = "./img/cards/" + cardsDeck[i] + ".png";
+    pairsСards[i].name = cardsDeck[i];
+}
+
+pairsСards.push(...pairsСards);
+//перемешивает отобранные карты 
+shuffle(pairsСards);
+console.log(pairsСards);
 
 //выводим картинки на экран
 function getImages(){
-    for(let i=0; i<shuffleArray.length; i++){
+    for(let i=0; i<pairsСards.length; i++){
     let img = document.createElement('img'); //создали картинку
     img.src = "./img/cards/back.png"; 
-    img.setAttribute('alt', shuffleArray[i].name);
+    img.setAttribute('alt', pairsСards[i].name);
     document.getElementById("container").appendChild(img); //выводим на экран
 }
 }
@@ -55,18 +54,34 @@ getImages();
 
 let testChecked;
 //поворот карты по клику 
-function showFront(eventObj) {
+function turnCard(eventObj) {
     let image = eventObj.target; //создали изображение за событием которого следим, таргет - информация по событию
-    let test = image.classList.contains("checked");
-    if (!test) {
+  //  if (!image.classList.contains("front")) {
         let name = image.alt;
-        console.log("showFront");
         name = "./img/cards/" + name + ".png";
         image.src = name;
-        image.classList.toggle("checked");
-    } else {
-        console.log("showBack");
-        image.src = "./img/cards/back.png";
-        image.classList.toggle("checked");
+        image.classList.toggle("front");
+        frontCounter++;
+        console.log(frontCounter);
+        if (frontCounter%2 == 0){
+            console.log("поворот");
+            frontCounter = 0;
+            image.classList.toggle("front");
+            setTimeout(ret, 1000);
+            
+        }
+    } 
+
+function ret() {
+    let images = document.getElementsByClassName("front");
+    if (images[0].src ==  images[1].src){
+        alert("победа!"); } else{
+            for (let i = 0; i < images.length; i++){
+                images[i].src = "./img/cards/back.png"; 
+            }
+        }
     }
-}
+    
+
+
+
