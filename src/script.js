@@ -24,64 +24,67 @@ function shuffle(a) {
 //массив с картами
 let cardsDeck = ["0C", "0D", "0H", "0S", "QH", "QS", "QD"];
 console.log(cardsDeck);
+//перемешиваем массив с картами 
 let shuffleCardsDeck = shuffle(cardsDeck);
 console.log(shuffleCardsDeck);
-
-//создает массив с парами отобранных карт, добавляет им картинки Src
+//создаем новый массив для двух пар карт (6 карт)
 let pairsСards = new Array(); 
-for(let i=0; i<2; i++){
-    pairsСards.push(shuffleCardsDeck[i])
-    pairsСards[i] = new Image();
-    pairsСards[i].src = "./img/cards/" + cardsDeck[i] + ".png";
-    pairsСards[i].name = cardsDeck[i];
+for(let i=0; i<3; i++){
+    pairsСards.push(shuffleCardsDeck[i]) //берем первые 2 элемента из перемешанной колоды
 }
-
 pairsСards.push(...pairsСards);
 //перемешивает отобранные карты 
 shuffle(pairsСards);
 console.log(pairsСards);
 
-//выводим картинки на экран
+//выводим картинки на экран рубашкой вверх с нужным атрибутом
 function getImages(){
+    let cardsBack = new Array();
     for(let i=0; i<pairsСards.length; i++){
-    let img = document.createElement('img'); //создали картинку
-    img.src = "./img/cards/back.png"; 
-    img.setAttribute('alt', pairsСards[i].name);
-    document.getElementById("container").appendChild(img); //выводим на экран
+        cardsBack[i] = new Image();
+        cardsBack[i].setAttribute('alt', pairsСards[i]);
+        cardsBack[i].src = "./img/cards/back.png"; 
+        document.getElementById("container").appendChild(cardsBack[i]);
+    }   
 }
-}
+
 getImages();
+
 
 let testChecked;
 //поворот карты по клику 
 function turnCard(eventObj) {
     let image = eventObj.target; //создали изображение за событием которого следим, таргет - информация по событию
   //  if (!image.classList.contains("front")) {
-        let name = image.alt;
-        name = "./img/cards/" + name + ".png";
-        image.src = name;
-        image.classList.toggle("front");
-        frontCounter++;
-        console.log(frontCounter);
-        if (frontCounter%2 == 0){
+        let name = "./img/cards/" + image.alt + ".png";
+        image.src = name; //меняем Src на фронт карты
+        image.classList.toggle("front"); //добавляем класс
+        frontCounter++; //за чем он следит?
+
+        if (frontCounter%2 == 0){ //может просто сравнения с 2 достаточно?
             console.log("поворот");
             frontCounter = 0;
-            image.classList.toggle("front");
             setTimeout(ret, 1000);
-            
         }
     } 
 
-function ret() {
-    let images = document.getElementsByClassName("front");
-    if (images[0].src ==  images[1].src){
-        alert("победа!"); } else{
-            for (let i = 0; i < images.length; i++){
-                images[i].src = "./img/cards/back.png"; 
-            }
-        }
-    }
+// удалить элементы из дом если у них 1 src, если нет, то поворот доработать!
     
+    function ret() {
+        let images = document.getElementsByClassName("front");
+        console.log(images); //ок
+        if (images[0].src ==  images[1].src){ //ок
+            document.getElementById("container").removeChild(images[0]);
+            document.getElementById("container").removeChild(images[0]);
+        } else { //ок
+           images[0].src = "./img/cards/back.png";
+           images[1].src = "./img/cards/back.png";
+           images[0].classList.toggle("front");
+           images[0].classList.toggle("front");
 
+           
+        
+    }
+}
 
 
