@@ -4,6 +4,9 @@ window.onload = init;
 //получает все картинки по тегу, перебирает, навешивает ф-цию обратного вызова showFront
 //т.е. обработчик (слушатель) на событие клик. При возникновении события вызывается showFront
 let frontCounter = 0;
+let score = 0;
+let scoreTag = document.getElementById("score")
+scoreTag.innerHTML = "Ваш итоговый счёт: " + score;
 
 function init() {
     var images = document.getElementsByTagName("img");
@@ -50,12 +53,10 @@ function getImages(){
 
 getImages();
 
-
 let testChecked;
 //поворот карты по клику 
 function turnCard(eventObj) {
     let image = eventObj.target; //создали изображение за событием которого следим, таргет - информация по событию
-  //  if (!image.classList.contains("front")) {
         let name = "./img/cards/" + image.alt + ".png";
         image.src = name; //меняем Src на фронт карты
         image.classList.toggle("front"); //добавляем класс
@@ -68,7 +69,7 @@ function turnCard(eventObj) {
         }
     } 
 
-// удалить элементы из дом если у них 1 src, если нет, то поворот доработать!
+// проверка совпадения и подсчет очков 
     
     function ret() {
         let images = document.getElementsByClassName("front");
@@ -76,15 +77,19 @@ function turnCard(eventObj) {
         if (images[0].src ==  images[1].src){ //ок
             document.getElementById("container").removeChild(images[0]);
             document.getElementById("container").removeChild(images[0]);
+            score = score + 1 * 42;
+            scoreTag.innerHTML = "Ваш итоговый счёт: " + score;
         } else { //ок
            images[0].src = "./img/cards/back.png";
            images[1].src = "./img/cards/back.png";
            images[0].classList.toggle("front");
            images[0].classList.toggle("front");
-
-           
-        
+           score = score - 1 * 42; 
+           if (score <= 0 ){
+            score = 0;
     }
+    scoreTag.innerHTML = "Ваш итоговый счёт: " + score;
 }
+    }
 
 
