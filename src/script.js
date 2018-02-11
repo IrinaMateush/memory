@@ -3,17 +3,46 @@
 window.onload = init; 
 //получает все картинки по тегу, перебирает, навешивает ф-цию обратного вызова showFront
 //т.е. обработчик (слушатель) на событие клик. При возникновении события вызывается showFront
-let frontCounter = 0;
+
 let score = 0;
-let scoreTag = document.getElementById("score")
-scoreTag.innerHTML = "Ваш итоговый счёт: " + score;
+let openСardСounter = 0; 
+let closedСardСounter = 9;
+let winningsСounter = 0;
+
+let scoreTag = document.getElementById("score");
+let finalScoreTag = document.getElementById("final__score");
+scoreTag.innerHTML = "Очки: " + score;
 
 function init() {
-    var images = document.getElementsByTagName("img");
-    for (var i = 0; i < images.length; i++){
+    let images = document.getElementsByTagName("img");
+    for (let i = 0; i < images.length; i++){
         images[i].onclick = turnCard; 
     }
+
+    let atFirstButton = document.getElementById("restart");
+    atFirstButton.onclick = atFirst;
 }
+
+function atFirst(eventObj){
+    let rarara = eventObj.target;
+    location.reload();
+}
+
+
+//поворот карты по клику 
+function turnCard(eventObj) {
+    let image = eventObj.target; //создали изображение за событием которого следим, таргет - информация по событию
+        let name = "./img/cards/" + image.alt + ".png";
+        image.src = name; //меняем Src на фронт карты
+        image.classList.toggle("front"); //добавляем класс
+        openСardСounter++; //за чем он следит?
+
+        if (openСardСounter%2 == 0){ //может просто сравнения с 2 достаточно?
+            openСardСounter = 0;
+            setTimeout(ret, 500);
+        }
+    } 
+
 
 //перемешивает массив
 function shuffle(a) {
@@ -25,20 +54,22 @@ function shuffle(a) {
 }
 
 //массив с картами
-let cardsDeck = ["0C", "0D", "0H", "0S", "QH", "QS", "QD"];
-console.log(cardsDeck);
+let cardsDeck = ["0C", "0D", "0H", "0S", "2C", "2D", "2H", "2S", 
+"3C", "3D", "3H", "3S", "4C", "4D", "4H", "4S", "5C", "5D", "5H", "5S",
+"6C", "6D", "6H", "6S", "7C", "7D", "7H", "7S", "8C", "8D", "8H", "8S",
+"9C", "9D", "9H", "9S", "AC", "AD", "AH", "AS", "JC", "JD", "JH", "JS",
+"KC", "KD", "KH", "KS", "QC", "QD", "QH", "QS"];
+
 //перемешиваем массив с картами 
 let shuffleCardsDeck = shuffle(cardsDeck);
-console.log(shuffleCardsDeck);
 //создаем новый массив для двух пар карт (6 карт)
 let pairsСards = new Array(); 
-for(let i=0; i<3; i++){
+for(let i=0; i<9; i++){
     pairsСards.push(shuffleCardsDeck[i]) //берем первые 2 элемента из перемешанной колоды
 }
 pairsСards.push(...pairsСards);
 //перемешивает отобранные карты 
 shuffle(pairsСards);
-console.log(pairsСards);
 
 //выводим картинки на экран рубашкой вверх с нужным атрибутом
 function getImages(){
@@ -46,50 +77,57 @@ function getImages(){
     for(let i=0; i<pairsСards.length; i++){
         cardsBack[i] = new Image();
         cardsBack[i].setAttribute('alt', pairsСards[i]);
-        cardsBack[i].src = "./img/cards/back.png"; 
+        setTimeout(returnAll, 5000);
+        cardsBack[i].src = "./img/cards/" + cardsBack[i].alt + ".png";
         document.getElementById("container").appendChild(cardsBack[i]);
+        //функция внутри функции, а как красиво делать?
+        function returnAll(){
+            cardsBack[i].src = "./img/cards/back.png"; 
+        }
     }   
 }
 
 getImages();
 
-let testChecked;
-//поворот карты по клику 
-function turnCard(eventObj) {
-    let image = eventObj.target; //создали изображение за событием которого следим, таргет - информация по событию
-        let name = "./img/cards/" + image.alt + ".png";
-        image.src = name; //меняем Src на фронт карты
-        image.classList.toggle("front"); //добавляем класс
-        frontCounter++; //за чем он следит?
-
-        if (frontCounter%2 == 0){ //может просто сравнения с 2 достаточно?
-            console.log("поворот");
-            frontCounter = 0;
-            setTimeout(ret, 1000);
-        }
-    } 
-
 // проверка совпадения и подсчет очков 
     
     function ret() {
         let images = document.getElementsByClassName("front");
-        console.log(images); //ок
         if (images[0].src ==  images[1].src){ //ок
-            document.getElementById("container").removeChild(images[0]);
-            document.getElementById("container").removeChild(images[0]);
-            score = score + 1 * 42;
-            scoreTag.innerHTML = "Ваш итоговый счёт: " + score;
+            images[0].style.visibility = "hidden";
+            images[1].style.visibility = "hidden";
+            images[0].classList.toggle("front");
+            images[0].classList.toggle("front");
+            score = score + closedСardСounter * 42;
+            console.log(score);
+            winningsСounter++; 
+            console.log(winningsСounter);
+            closedСardСounter--;
+            console.log(closedСardСounter);
+            scoreTag.innerHTML = "Очки: " + score;
+            // если количество карт = кол-ву исходных карт, то переходим на финалку
+            //if (winningsСounter == 3){
+           // window.location.href = 'finalGame.html';
+           // finalScoreTag.innerHTML = "Ваш итоговый счёт: " + score;
+           // }
+
         } else { //ок
            images[0].src = "./img/cards/back.png";
            images[1].src = "./img/cards/back.png";
            images[0].classList.toggle("front");
            images[0].classList.toggle("front");
-           score = score - 1 * 42; 
+           
+
            if (score <= 0 ){
             score = 0;
-    }
-    scoreTag.innerHTML = "Ваш итоговый счёт: " + score;
+            } else {
+                score = score - winningsСounter * 42; 
+                if (score <= 0 ){
+                    score = 0;
+                }
+            }
+            console.log(score);
+    scoreTag.innerHTML = "Очки: " + score;
+
 }
-    }
-
-
+}
