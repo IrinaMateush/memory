@@ -8,9 +8,14 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <div id="final__container">
-        <p id="final__score">Конец игры</p>
+    <div class="final-wpapper">
+        <img class="final-wpapper__img" src="./img/FinalGame.png" srcset="./img/FinalGame@2x.png 2x" alt="Колода">
+        <p class="final-wpapper__result">Поздравляем!</br> Ваш итоговый счет: <span id="score"></span></p>
+        <a href="index.html" class="final-wpapper__button" id="restart">Еще раз</a>
     </div>
-    <script src="script.js"></script>
-</body>
+    <script>
+            let score = window.location.href.split("?")[1].split("=")[1];
+            document.getElementById("score").innerHTML = score;
+    </script>
+    </body>
 </html>

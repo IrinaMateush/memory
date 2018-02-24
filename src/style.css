@@ -25,26 +25,28 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
     line-height: 1;
-    font-family: OpenSans-Bold;
+    opacity: 0.8;
+    font-family: OpenSans-Semibold;
     font-size: 19px;
-    color: white;
-    background: green;
-    margin: 0;
+    color: #FFFFFF;
+    background: #1C7430;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #container{
-    height: 100vh;
-    width: 70%;
+    height: 95vh;
+    max-width: 700px;
     justify-content: space-between;
     flex-wrap: wrap;
     display: flex;
 }
+
 .header{
     width: 100%;
-    height: 30px;
+    padding-top: 54px;
+    padding-bottom: 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -52,13 +54,70 @@ body {
 }
 #restart{
     cursor: pointer;
+    letter-spacing: -0.25px;
 }
+
 #score{
     font-family: Krungthep;
 }
+
 img {
     border-radius: 5%;
-    margin-bottom: 1%;
-    width: 15%;
-    height: 29%;
+    width: 14.7%;
+    height: 24%;
+}
+
+
+
+
+.start-wpapper, .final-wpapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 94px;
+    max-width: 503px;
+}
+.final-wpapper {
+    padding-top: 74px;
+    max-width: 516px;
+}
+.start-wpapper__img, .final-wpapper__img {
+    width: 100%;
+    height: 262px;
+}
+
+.final-wpapper__img {
+    width: 100%;
+    height: 275px;
+}
+
+.start-wpapper__title, .final-wpapper__result {
+    text-transform: uppercase;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    font-family: OpenSans-Bold;
+    font-size: 28px;
+    color: #FFFFFF;
+    letter-spacing: 0.2px;
+}
+
+.final-wpapper__result {
+    font-size: 24px;
+    text-transform: none;
+    letter-spacing: 0.15px;
+    line-height: 35px;
+    text-align: center;
+}
+
+.start-wpapper__button, .final-wpapper__button {
+    padding: 10px 20px;
+    text-decoration: none;
+    font-family: OpenSans-Bold;
+    font-size: 16px;
+    color: #1C7430;
+    letter-spacing: 0;
+    opacity: 0.85;
+    background: #FFFFFF;
+    border-radius: 4px;
+    font-weight: bold;
 }

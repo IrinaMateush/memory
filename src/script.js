@@ -10,8 +10,8 @@ let closedСardСounter = 9;
 let winningsСounter = 0;
 
 let scoreTag = document.getElementById("score");
-let finalScoreTag = document.getElementById("final__score");
-scoreTag.innerHTML = "Очки: " + score;
+
+scoreTag.innerHTML = score;
 
 function init() {
     let images = document.getElementsByTagName("img");
@@ -42,7 +42,6 @@ function turnCard(eventObj) {
             setTimeout(ret, 500);
         }
     } 
-
 
 //перемешивает массив
 function shuffle(a) {
@@ -99,17 +98,13 @@ getImages();
             images[0].classList.toggle("front");
             images[0].classList.toggle("front");
             score = score + closedСardСounter * 42;
-            console.log(score);
             winningsСounter++; 
-            console.log(winningsСounter);
             closedСardСounter--;
-            console.log(closedСardСounter);
-            scoreTag.innerHTML = "Очки: " + score;
+            scoreTag.innerHTML = score;
             // если количество карт = кол-ву исходных карт, то переходим на финалку
-            //if (winningsСounter == 3){
-           // window.location.href = 'finalGame.html';
-           // finalScoreTag.innerHTML = "Ваш итоговый счёт: " + score;
-           // }
+            if (winningsСounter == 9){
+            window.location.href = 'finalGame.html?='+score;           
+            }
 
         } else { //ок
            images[0].src = "./img/cards/back.png";
@@ -126,8 +121,7 @@ getImages();
                     score = 0;
                 }
             }
-            console.log(score);
-    scoreTag.innerHTML = "Очки: " + score;
+    scoreTag.innerHTML = score;
 
 }
 }
