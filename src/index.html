@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Memory</title>
-    <link href="style.css" rel="stylesheet">
+    <link href="css/normalize.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-    <div id="container">
+    <div id="container" data-tid="Deck">
          <div class="header">
-            <span id="restart">Начать заново</span>
-            <p>Очки: <span id="score"></span></p>
+            <span id="restart" data-tid="Menu-newGame">Начать заново</span>
+            <p>Очки: <span id="score" data-tid="Menu-scores"></span></p>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
