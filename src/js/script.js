@@ -4,14 +4,12 @@ window.onload = init;
 //получает все картинки по тегу, перебирает, навешивает ф-цию обратного вызова showFront
 //т.е. обработчик (слушатель) на событие клик. При возникновении события вызывается showFront
 
-let score = 0;
+
 let openСardСounter = 0; 
 let closedСardСounter = 9;
 let winningsСounter = 0;
 
-let scoreTag = document.getElementById("score");
 
-scoreTag.innerHTML = score;
 
 function init() {
     let images = document.getElementsByTagName("img");
@@ -39,7 +37,7 @@ function turnCard(eventObj) {
 
         if (openСardСounter%2 == 0){ //может просто сравнения с 2 достаточно?
             openСardСounter = 0;
-            setTimeout(ret, 500);
+            setTimeout(matchChecker, 500);
         }
     } 
 
@@ -89,8 +87,13 @@ function getImages(){
 getImages();
 
 // проверка совпадения и подсчет очков 
-    
-    function ret() {
+    let score = 0;
+
+    function matchChecker() {
+       
+        let scoreTag = document.getElementById("score");
+        scoreTag.innerHTML = score;
+
         let images = document.getElementsByClassName("front");
         if (images[0].src ==  images[1].src){ //ок
             images[0].style.visibility = "hidden";
