@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
+    <script>
+    mocha.setup('bdd');
+    </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
+  <script>
+    var assert = chai.assert;
+  </script>
+</head>
+
+<body>
+
+  <script>
+
+    function matchChecker(src1, src2, score, winningsСounter, closedСardСounter) {       
+        if (src1 == src2) { 
+          score = score + closedСardСounter * 42;
+          winningsСounter++; 
+          closedСardСounter--;
+        } else { 
+          if (score <= 0 ){
+            score = 0;
+            } else {
+                score = score - winningsСounter * 42; 
+                if (score <= 0 ){
+                    score = 0;
+                }
+            }
+        }
+        return score;
+    }
+    
+  </script>
+
+  <script src="js/test.js">
+  </script>
+
+  <div id="mocha"></div>
+
+  <script>
+    mocha.run();
+  </script>
+</body>
+</html>
