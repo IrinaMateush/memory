@@ -11,7 +11,7 @@ body {
     align-items: center;
 }
 
-#container{
+#container {
     height: 95vh;
     max-width: 700px;
     justify-content: space-between;
@@ -19,21 +19,21 @@ body {
     display: flex;
 }
 
-.header{
+.header {
     width: 100%;
     padding-top: 54px;
     padding-bottom: 35px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    
+    align-items: center; 
 }
-#restart{
+
+#restart {
     cursor: pointer;
     letter-spacing: -0.25px;
 }
 
-#score{
+#score {
     font-family: Krungthep;
 }
 
@@ -42,9 +42,6 @@ img {
     width: 14.7%;
     height: 24%;
 }
-
-
-
 
 .start-wpapper, .final-wpapper {
     display: flex;

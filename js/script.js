@@ -39,7 +39,6 @@ let winningsСounter = 0;
             cardsBack[i].src = "./img/cards/" + cardsBack[i].alt + ".png";
             document.getElementById("container").appendChild(cardsBack[i]);
             setTimeout(returnAll, 5000);
-            //может заменить на анонимную или еще что?
             function returnAll() {
                 cardsBack[i].src = "./img/cards/back.png"; 
             }
@@ -47,7 +46,7 @@ let winningsСounter = 0;
     }
 
     function returnCards(eventObj) {
-        let image = eventObj.target; //создали изображение за событием которого следим, таргет - информация по событию
+        let image = eventObj.target; 
         let name = "./img/cards/" + image.alt + ".png";
         image.src = name; 
         image.classList.toggle("front"); 
@@ -79,10 +78,8 @@ let winningsСounter = 0;
         scoreTag.innerHTML = score;
     }
     
-    function addScore(score) {
+    function addScore(score, closedСardСounter) {
         score = score + closedСardСounter * 42;
-        winningsСounter++; 
-        closedСardСounter--;
         return score;        
     }
 
@@ -106,8 +103,9 @@ let winningsСounter = 0;
             images[1].style.visibility = "hidden";
             images[0].classList.toggle("front");
             images[0].classList.toggle("front");
-
-            score = addScore(score);
+            score = addScore(score, closedСardСounter);
+            winningsСounter++; 
+            closedСardСounter--;
             showScore(score);
             if (winningsСounter == 9) {
                 window.location.href = 'finalGame.html?='+score;           

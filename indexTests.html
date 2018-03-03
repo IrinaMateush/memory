@@ -18,26 +18,7 @@
 
 <body>
 
-  <script>
-
-    function matchChecker(src1, src2, score, winningsСounter, closedСardСounter) {       
-        if (src1 == src2) { 
-          score = score + closedСardСounter * 42;
-          winningsСounter++; 
-          closedСardСounter--;
-        } else { 
-          if (score <= 0 ){
-            score = 0;
-            } else {
-                score = score - winningsСounter * 42; 
-                if (score <= 0 ){
-                    score = 0;
-                }
-            }
-        }
-        return score;
-    }
-    
+  <script src="js/script.js">
   </script>
 
   <script src="js/test.js">
