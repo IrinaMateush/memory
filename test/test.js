@@ -1,5 +1,3 @@
-"use strict"
-
     describe("test replaceScore", function() {
         it("первый ход - промах", function() {
             assert.equal(replaceScore(0, 0), 0, 'ошибка в вычитании: очки не равны 0 после первого промаха');
@@ -30,11 +28,13 @@
             });
     });
 
+
     describe("test сreateNewDeck", function() {
         it("сreateNewDeck создает колоду из 18 карт", function() {
             assert.equal((сreateNewDeck(cardsDeck).length), 18, 'ошибка: в колоде должно быть 18 карт');
         });
 });
+
 
 describe("test shuffle", function() {
     it("shuffle перемешивает колоду", function() {
