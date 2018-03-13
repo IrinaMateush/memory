@@ -50,11 +50,12 @@ function returnCards(eventObj) {
     let image = eventObj.target; 
     let name = "./img/cards/" + image.alt + ".png";
     image.src = name;
-    image.classList.toggle("front");
-    openСardСounter++;
-    image.removeAttribute('data-tid', 'Card-flipped');
-    image.setAttribute('data-tid', 'Card');
-          
+    if (image.classList.contains("front") == false) {
+        image.classList.toggle("front");
+        openСardСounter++;
+        image.removeAttribute('data-tid', 'Card-flipped');
+        image.setAttribute('data-tid', 'Card');
+    }
     if (openСardСounter === 2) { 
         openСardСounter = 0;
         setTimeout(matchChecker, 500);
